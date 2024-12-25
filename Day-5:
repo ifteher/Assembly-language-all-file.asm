@@ -1,0 +1,74 @@
+                      .model small
+.stack 100h
+
+.data
+a db 'Input first digit:  $'
+b db 10,13,'Input second digit:  $'
+c db 10,13,'Addition Result:  $'
+d db 10,13,'Subtraction Result:   $'
+
+.code
+main proc
+    ; Initialize data segment
+    mov ax, @data
+    mov ds, ax
+
+    ; Show first message
+    mov ah, 9
+    lea dx, a
+    int 21h
+
+    ; Input first digit
+    mov ah, 1
+    int 21h
+    sub al, 48         ; Convert ASCII to numeric value
+    mov bl, al         ; Store the first digit in BL
+
+    ; Show second message
+    mov ah, 9
+    lea dx, b
+    int 21h
+
+    ; Input second digit
+    mov ah, 1
+    int 21h
+    sub al, 48         ; Convert ASCII to numeric value
+    mov bh, al         ; Store the second digit in BH
+
+    ; Display the addition result
+    mov ah, 9
+    lea dx, c
+    int 21h
+
+    ; Perform addition
+    mov al, bl         ; Copy the first number into AL
+    add al, bh         ; Add the second number
+    add al, 48         ; Convert numeric value to ASCII
+    mov dl, al         ; Move the result to DL
+    mov ah, 2          ; Display the result
+    int 21h
+
+    ; Display the subtraction result
+    mov ah, 9
+    lea dx, d
+    int 21h
+
+    ; Perform subtraction
+    mov al, bl         ; Copy the first number into AL
+    sub al, bh         ; Subtract the second number
+    add al, 48         ; Convert numeric value to ASCII
+    mov dl, al         ; Move the result to DL
+    mov ah, 2          ; Display the result
+    int 21h
+
+    ; Exit the program
+    mov ah, 4Ch
+    int 21h
+
+main endp
+end main
+
+;#OUTPUT of this code:Input first digit: 5 
+;Input second digit: 2
+; Addition Result:  7 
+;Subtraction Result: 3
