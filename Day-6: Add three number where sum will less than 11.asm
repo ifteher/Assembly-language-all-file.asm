@@ -1,3 +1,5 @@
+TASK: Add three number where sum will less than 11:
+
 .model small        ; Specify the small memory model
 .stack 100h         ; Allocate 256 bytes of stack space
 
